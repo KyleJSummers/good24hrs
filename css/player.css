@@ -24,7 +24,6 @@ body {
 }
 
 #splashLeft {
-	background: url('../img/splash-bg.jpg');
 	background-size: auto 1000px;
 	background-position: -296px;
 	width: 656px;
@@ -39,13 +38,47 @@ body {
 }
 
 #splashRight {
+	background-color: #544e4e;
+	border: 10px solid black;
 	width: 368px;
+	height: 768px;
 	float: left;
 }
 
+#phone {
+	width: 368px;
+	height: 768px;
+}
+
+#phone-greeting {
+	background-color: #b8cf5f;
+	width: 348px;
+	height: 83px;
+}
+
+#activity {
+	width: 348px;
+	height: 31px;
+	background-color: #b8cf5f;
+	margin-top: 2px;
+}
+
+#activity p {
+	color: white;
+}
+
+#toolbar {
+	width: 348px;
+	height: 45px;
+	background-color: black;
+	margin-top: 570px;
+}
+
+
+
 #splashMap {
 	height: 768px;
-	width: 366px;
+	width: 656px;
 }
 
 #splashConfig {
@@ -57,54 +90,14 @@ body {
 	position: relative;
 }
 
-#splashConfig .loggedin button {
-	position: absolute;
-	bottom: -25px;
-	left: 50%;
-	margin-left: -75px;
-	width: 150px;
-	height: 45px;
-	background-color: #b8cf5f;
-	border-style: none;
-}
-
-#splashConfig .loggedin button:hover #adv-text {
-	display: inline-block;
-	padding-right: 0.25em;
-}
 
 #cont {
 	width: 1024px;
 }
 
 h1 {
-	color: black;
+	color: #fff;
 	font-family: "Akkurat Pro Bold";
 }
 
-#fb-login {
-	background: url(../img/fb_active.png);
-	width: 202px;
-	height: 46px;
-	border: none;
-	margin-top: 1em;
-	outline:none;
-	padding: 0;
-}
 
-#fb-login:active {
-	background: url(../img/fb_pressed.png);
-	border: none;
-}
-
-.loading {
-	display: none;
-}
-
-.loggedin {
-	display: none;
-}
-
-.loading #loading-spinner {
-	margin-top: 116px;
-}
