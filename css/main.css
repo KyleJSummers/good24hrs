@@ -1,0 +1,110 @@
+@font-face
+{
+	font-family: "Akkurat Pro Bold";
+	src: url(../fonts/AkkBd_Pro.ttf);
+}
+
+@font-face
+{
+	font-family: "Akkurat Light Pro";
+	src: url(../fonts/AkkLg_Pro.ttf);
+}
+
+body {
+	background-color: #000;
+	font-family: "Akkurat Pro Bold";
+}
+
+#splash {
+	width: 1024px;
+	height: 768px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 24px;
+}
+
+#splashLeft {
+	background: url('../img/splash-bg.jpg');
+	background-size: auto 1000px;
+	background-position: -296px;
+	width: 656px;
+	height: 100%;
+	float: left;
+}
+
+#splashLeft p {
+	margin-top: 2em;
+	font-size: 1.5em;
+	font-family: "Akkurat Light Pro";
+}
+
+#splashRight {
+	width: 368px;
+	float: left;
+}
+
+#splashMap {
+	height: 768px;
+	width: 366px;
+}
+
+#splashConfig {
+	border: 10px solid #b8cf5f;
+	width: 305px;
+	height: 392px;
+	margin: 24px 0 0 24px;
+	background-color: #fff;
+	position: relative;
+}
+
+#splashConfig .loggedin button {
+	position: absolute;
+	bottom: -25px;
+	left: 50%;
+	margin-left: -75px;
+	width: 150px;
+	height: 45px;
+	background-color: #b8cf5f;
+	border-style: none;
+}
+
+#splashConfig .loggedin button:hover #adv-text {
+	display: inline-block;
+	padding-right: 0.25em;
+}
+
+#cont {
+	width: 1024px;
+}
+
+h1 {
+	color: #fff;
+	font-family: "Akkurat Pro Bold";
+}
+
+#fb-login {
+	background: url(../img/fb_active.png);
+	width: 202px;
+	height: 46px;
+	border: none;
+	margin-top: 1em;
+	outline:none;
+	padding: 0;
+}
+
+#fb-login:active {
+	background: url(../img/fb_pressed.png);
+	border: none;
+}
+
+.loading {
+	display: none;
+}
+
+.loggedin {
+	display: none;
+}
+
+.loading #loading-spinner {
+	margin-top: 116px;
+}
