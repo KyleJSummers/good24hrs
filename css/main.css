@@ -48,6 +48,10 @@ body {
 	width: 366px;
 }
 
+#splashMap.wide {
+	width: 656px;
+}
+
 #splashConfig {
 	border: 10px solid #b8cf5f;
 	width: 305px;
@@ -107,4 +111,8 @@ h1 {
 
 .loading #loading-spinner {
 	margin-top: 116px;
+}
+
+.dropdown-menu li {
+	text-align: left;
 }

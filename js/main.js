@@ -35,6 +35,21 @@ var Facebook = function ( callback ) {
                     });
     };
 
+    this.getFriends = function(cb) {
+      console.log('Facebook.getFriends()');
+      FB.api('/me', function(response) {
+          FB.api('/me/friends', function(response_friends) {
+              if(response_friends != null && response_friends.data != null) {
+                    response_friends.data.push({"name": response.name, "id": response.id});
+                    console.log(response_friends);
+                    cb(response_friends.data);
+                }
+            });
+      });
+
+      // returns somethin like cb([{name:"",id:""},...]);
+    }
+
     this.init = function() {
     /* provided FB init code, don't need to touch much at all*/
 
@@ -79,68 +94,93 @@ var Facebook = function ( callback ) {
 
 var game = (function () {
 
-	geocoder = new google.maps.Geocoder();
-
-  	function codeAddress( cb ) {
-	    //In this case it gets the address from an element on the page, but obviously you  could just pass it to the method instead
-	    var address = "New York, NY";
-
-	    geocoder.geocode( { 'address': address }, function(results, status) {
-	      if (status == google.maps.GeocoderStatus.OK) {
-	        //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
-	        cb(results[0].geometry.location);
-          console.log(results[0].geometry.location);
-	      } else {
-	        alert("Geocode was not successful for the following reason: " + status);
-	      }
-    	});
-    }
-
   var fb = null,
       map = null;
 
 	function initialize() {
-		codeAddress( function (loc) {
-		  var mapOptions = {
-		    center: new google.maps.LatLng(37.7749295, -122.41941550000001),
-        draggable: false,
-        scrollwheel: false,
-        panControl: false,
-        maxZoom: 10,
-        minZoom: 10,
-        zoom: 10,
-		  };
-		  map = new google.maps.Map(document.getElementById("splashMap"), mapOptions);
-    });
+	  var mapOptions = {
+	    center: new google.maps.LatLng(37.7749295, -122.41941550000001),
+      draggable: false,
+      scrollwheel: false,
+      panControl: false,
+      maxZoom: 10,
+      minZoom: 10,
+      zoom: 10,
+	  };
+	  map = new google.maps.Map(document.getElementById("splashMap"), mapOptions);
   }
+
+  var that = this,
+      friendList = [];
 
   function initUser () {
     var firstName = fb.firstName;
     $("#userFirstName").text(firstName);
-    $(".loading").hide();
-    $(".loggedin").show();
+
+    that.initFriends( function () {
+      $(".loading").hide();
+      $(".loggedin").show();
+    });
   }
 
   var cities = {
     "sf": new google.maps.LatLng(37.7749295, -122.41941550000001),
-    "ny": new google.maps.LatLng(40.7143528, -74.0059731)
+    "sea": new google.maps.LatLng(47.6062095, -122.3320708)
   }
 
   function changeCity ( city ) {
     map.panTo( cities[city] );
   }
 
-  var that = this;
+  that.getFriends = function () {
+    return that.friendList;
+  }
+
+  that.friends = {};
+
+  that.initFriends = function ( callback ) {
+
+    that.friendList = [];
+
+    fb.getFriends( function ( friendRsp ) { 
+      console.log(friendRsp);
+      for ( var i=0, l=friendRsp.length; i < l; i++ ) {
+        var friend = friendRsp[i];
+        that.friends[ friend.name ] = { "id": friend.id };
+        that.friendList.push( friend.name );
+      }
+
+      console.log(that.friendList);
+
+      $('#friend-select').typeahead({
+        source: that.getFriends
+      });
+
+      callback();
+    });
+  };
+
+  function startGame() {
+    $("#splashLeft").hide("slide", { direction: "left" }, 500, function () {
+      $("#splashMap").addClass("wide");
+      
+      map.set('draggable', true);
+      map.set('scrollwheel', true);
+      map.set('panControl', true);
+      map.set('maxZoom', null);
+      map.set('minZoom', null);
+      map.set('zoom', 12);
+
+      google.maps.event.trigger(map, 'resize');
+    });
+  }
 
   $(function () {
   	initialize();
 
     $("#city-select").on("change", function () {
       var city = $(this).val();
-
-      if ( city === "sf" || city === "ny" ) {
-        changeCity(city);
-      }
+      changeCity(city);
     });
 
     $("#fb-login").on("click", function () {
@@ -150,5 +190,10 @@ var game = (function () {
         initUser();
       });
     });
+
+    $("#startGameBtn").on("click", function () {
+      startGame();
+    });
+
   });
 })();
