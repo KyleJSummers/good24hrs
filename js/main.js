@@ -57,7 +57,7 @@ var Facebook = function ( callback ) {
 
       // init the FB JS SDK
       FB.init({
-        appId      : '1424028607819128',  // App ID from the app dashboard
+        appId      : '1411613772435604',  // App ID from the app dashboard
         channelUrl : '/channel.html',   // Channel file for x-domain comms
         status     : true,        // Check Facebook Login status
         xfbml      : true       // Look for social plugins on the page
