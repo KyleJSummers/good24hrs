@@ -39,8 +39,8 @@ body {
 }
 
 #splashRight {
-	width: 368px;
 	float: left;
+	position: relative;
 }
 
 #splashMap {
@@ -115,4 +115,74 @@ h1 {
 
 .dropdown-menu li {
 	text-align: left;
+}
+
+#phoneDisp {
+	display: none;
+	float: left;
+	background-color: #544e4e;
+	border: 10px solid black;
+	width: 368px;
+	position: relative;
+}
+
+#phone {
+	width: 360px;
+	height: 728px;
+}
+
+#phone-greeting {
+	background-color: #b8cf5f;
+	width: 348px;
+	height: 83px;
+}
+
+#activity {
+	width: 348px;
+	background-color: #b8cf5f;
+	margin-top: 2px;
+}
+
+#activity p {
+	color: white;
+}
+
+#toolbar {
+	width: 348px;
+	height: 45px;
+	background-color: black;
+	margin-top: 570px;
+}
+
+#phoneOverlay {
+	width: 100%;
+	height: 748px;
+	position: absolute;
+	background-color: #000;
+	z-index: 10000;
+	text-align: center;
+	color: #fff;
+}
+
+#overlayInner {
+	margin-top: 20em;
+}
+
+#msgArea {
+	display: none;
+	position: absolute;
+	left: 24px;
+	bottom: 36px;
+	width: 600px;
+	height: 100px;
+	border: 5px solid #000;
+	background-color: #fff;
+	padding: 8px;
+}
+
+#phoneLost {
+	display: none;
+	height: 748px;
+	background-color: #000;
+	color: #fff;
 }

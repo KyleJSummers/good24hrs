@@ -47,7 +47,7 @@
               <img id="loading-spinner" src="img/loading.gif" />
             </div>
             <div class="loggedin">
-              <h2>Hi, <span id="userFirstName">there</span>!</h2>
+              <h2>Hi, <span class="userFirstName">there</span>!</h2>
               <p>
                 Let's get exploring.<br /><br />
                 Choose your city
@@ -70,6 +70,34 @@
 
         <div id="splashRight">
           <div id="splashMap">&nbsp;</div>
+          <div id="msgArea">
+            <p>Let's get started exploring!</p>
+            <button id="nextBtn">Next</button>
+          </div>
+        </div>
+
+        <div id="phoneDisp">
+          <div id="phoneOverlay">
+            <div id="overlayInner">
+              <h2>Mouseover for your phone</h2>
+            </div>
+          </div>
+          <div id="phoneLost">
+            <h2>Uh-oh. You don't have your phone...</h2>
+          </div>
+          <div id="phone">
+              <div id="phone-greeting"><h1>Hi, <span class="userFirstName"></span>!</h1></div>
+              <div id="activity">
+                <p>Your Activity<br />
+                <ul id="activityList"></ul></p>
+              </div>
+              <div id="actions">
+                <button id="selfieBtn">Take A Selfie!</button>
+                <button id="checkinBtn">Check In</button>
+                <button id="venmoBtn">Venmo</button>
+              </div>
+              <div id="toolbar"><p>Toolbar</p></div>
+          </div>
         </div>
 
       </div>

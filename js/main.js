@@ -111,11 +111,12 @@ var game = (function () {
   }
 
   var that = this,
-      friendList = [];
+      friendList = [],
+      friendName = "Nancy Xiao";
 
   function initUser () {
     var firstName = fb.firstName;
-    $("#userFirstName").text(firstName);
+    $(".userFirstName").text(firstName);
 
     that.initFriends( function () {
       $(".loading").hide();
@@ -128,8 +129,80 @@ var game = (function () {
     "sea": new google.maps.LatLng(47.6062095, -122.3320708)
   }
 
+  var selCity = "sea";
+
+  var stopNum = 0;
+
+  var stops = {
+    "places": [
+      {
+        "activity": "coffee",
+        "message": "Let's go get coffee at {place}! Be sure to take a selfie with {friend}!",
+        "action": "selfie"
+      },
+      {
+        "activity": "sight",
+        "message": "Time to go sightseeing! Time to go check out {place}! Be sure to checkin so your friends can see where you've been!",
+        "action": "checkin"
+      },
+      {
+        "activity": "lunch",
+        "message": "You're starting to get hungry. Go get lunch at {place}. You need to Venmo {friend} for it though!",
+        "action": "venmo"
+      }
+    ]
+  };
+
+  var places = {
+    "sea": {
+      "coffee": [
+        {
+          name: "Zeitgeist Coffee",
+          lat: 47.599006,
+          lng: -122.331947
+        }
+      ],
+      "sight": [
+        {
+          name: "Bill Speidel's Underground Tour",
+          lat: 47.602219,
+          lng: -122.333613
+        }
+      ],
+      "lunch": [
+        {
+          name: "Dahlia Lounge",
+          lat: 47.613045,
+          lng: -122.340431
+        }
+      ]
+    }
+  };
+
+  function nextPlace() {
+    var stop = stops.places[stopNum];
+    var place = places[selCity][stop.activity][0];
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(place.lat, place.lng),
+      map: map,
+      title: place.name
+    });
+
+    var a = $("#msgArea p").text( stop.message.replace("{friend}", friendName).replace("{place}", place.name) );
+    $("#msgArea button").hide();
+
+    if ( stopNum === 2 ) {
+      $("#phone").hide();
+      $("#phoneLost").show();
+    }
+
+    stopNum++;
+  }
+
   function changeCity ( city ) {
     map.panTo( cities[city] );
+    selCity = city;
   }
 
   that.getFriends = function () {
@@ -172,7 +245,13 @@ var game = (function () {
       map.set('zoom', 12);
 
       google.maps.event.trigger(map, 'resize');
+      $("#phoneDisp").show();
+      $("#msgArea").show();
     });
+  }
+
+  function goToPlace( placeType ) {
+    console.log("Testing");
   }
 
   $(function () {
@@ -193,6 +272,35 @@ var game = (function () {
 
     $("#startGameBtn").on("click", function () {
       startGame();
+    });
+
+    $("#phoneDisp").on("mouseenter", function () {
+      $("#phoneOverlay").hide("fade", 250);
+    });
+
+    $("#phoneDisp").on("mouseleave", function () {
+      $("#phoneOverlay").show("fade", 250);
+    });
+
+    $("#nextBtn").on("click", function () {
+      nextPlace();
+    });
+
+    $("#actions button").on("click", function () {
+      $("#msgArea button").show();
+    });
+
+    $("#selfieBtn").on("click", function () {
+      console.log("Appending...");
+      $("#activityList").append("<li>You took a selfie!</li>");
+    });
+
+    $("#checkinBtn").on("click", function () {
+      $("#activityList").append("<li>You checked in!</li>");
+    });
+
+    $("#venmoBtn").on("click", function () {
+      $("#activityList").append("<li>You sent someone a payment via Venmo!</li>");
     });
 
   });
